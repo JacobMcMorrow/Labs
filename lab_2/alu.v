@@ -78,7 +78,7 @@ module lab_2c(
 	
 	// LEDR binary display for ALUout
 	assign LEDR = ALUout;
-	
+endmodule
 	
 module mux7to1_8bit(out, in0, in1, in2, in3, in4, in5, in6, sel);
 	output [7:0] out;
