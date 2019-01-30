@@ -3,11 +3,11 @@ module lab_1(
 	output [9:0] LEDR // will only use 0
 	);
 	
-	7to1mux mux1(LEDR[0], SW[6:0], SW[9:7]);
+	mux7to1 mux1(LEDR[0], SW[6:0], SW[9:7]);
 endmodule
 
-module 7to1mux(
-	output out,
+module mux7to1(
+	output reg out,
 	input[6:0] SW,
 	input[2:0] sel
 	);
