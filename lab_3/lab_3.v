@@ -9,8 +9,25 @@ module lab_3(
 	
 	wire [7:0] ALUout, REGout;
 	
-	alu my_alu(ALUout, SW[7:4], SW[3:0] KEY[3:1]);
+	alu my_alu(ALUout, SW[3:0], REGout[3:0], KEY[3:1]);
 	register my_register(REGout, KEY0, SW[9], ALUout);
+
+	// Display Data in hex
+	hex_display HEX_0(
+		.IN(SW[3:0]),
+		.OUT(HEX0[7:0])
+		);
+
+	// Display register out least and most significant bits
+	hex_display HEX_4(
+		.IN(REGout[3:0]),
+		.OUT(HEX0[7:0])
+		);
+	
+	hex_display HEX_5(
+		.IN(REGout[7:3]),
+		.OUT(HEX0[7:0])
+		);
 	
 	// LEDR binary display for ALUout
 	assign LEDR = ALUout;
