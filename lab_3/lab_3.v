@@ -25,7 +25,7 @@ module lab_3(
 		);
 	
 	hex_display HEX_5(
-		.IN(REGout[7:3]),
+		.IN(REGout[7:4]),
 		.OUT(HEX0[7:0])
 		);
 	
