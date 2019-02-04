@@ -10,23 +10,23 @@ module lab_3(
 	wire [7:0] ALUout, REGout;
 	
 	alu my_alu(ALUout, SW[3:0], REGout[3:0], KEY[3:1]);
-	register my_register(REGout, KEY0, SW[9], ALUout);
+	register my_register(REGout, KEY[0], SW[9], ALUout);
 
 	// Display Data in hex
 	hex_display HEX_0(
 		.IN(SW[3:0]),
-		.OUT(HEX0[7:0])
+		.OUT(HEX0[6:0])
 		);
 
 	// Display register out least and most significant bits
 	hex_display HEX_4(
 		.IN(REGout[3:0]),
-		.OUT(HEX0[7:0])
+		.OUT(HEX4[6:0])
 		);
 	
 	hex_display HEX_5(
 		.IN(REGout[7:4]),
-		.OUT(HEX0[7:0])
+		.OUT(HEX5[6:0])
 		);
 	
 	// LEDR binary display for ALUout
@@ -40,14 +40,13 @@ module alu(out, A, B, sel);
 
 	wire [7:0] fa_out;
 	
+	full_adder_4bits(fa_out[4], fa_out[3:0], A, B, 0);
+	
 	always @(*)
 	begin
 		case (sel)
 			// A + B lab 2 full adder
-			3'b000: begin
-						full_adder_4bits(fa_out[4], fa_out[3:0], A, B, 0);
-						out = fa_out;
-					end
+			3'b000: out = fa_out;
 			// A + B verilog '+'
 			3'b001: out = A + B;
 			// A XOR B lower four bits A OR B upper four bits
