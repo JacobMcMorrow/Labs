@@ -20,12 +20,12 @@ module lab_3(
 
 	// Display register out least and most significant bits
 	hex_display HEX_4(
-		.IN(REGout[7:4]),
+		.IN(REGout[3:0]),
 		.OUT(HEX4[6:0])
 		);
 	
 	hex_display HEX_5(
-		.IN(REGout[3:0]),
+		.IN(REGout[7:4]),
 		.OUT(HEX5[6:0])
 		);
 	
