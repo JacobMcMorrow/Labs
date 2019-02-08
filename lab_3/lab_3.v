@@ -3,13 +3,13 @@ module lab_3(
 	output [6:0] HEX0, // hex representation of Data
 	output [6:0] HEX4, // display least significant bit of register
 	output [6:0] HEX5, // display most significant bit of register
-	input [9:0] SW,
+	input [17:0] SW,
 	input [3:0] KEY
 	);
 	
 	wire [7:0] ALUout, REGout;
 	
-	alu my_alu(ALUout, SW[3:0], REGout[3:0], KEY[3:1]);
+	alu my_alu(ALUout, SW[3:0], REGout[3:0], SW[17:14]);
 	register my_register(REGout, KEY[0], SW[9], ALUout);
 
 	// Display Data in hex

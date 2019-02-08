@@ -1,17 +1,17 @@
 module lab_3b(
 	output [7:0] LEDR, // connect to Q[7:0] on shifter
-	input [9:0] SW, // 7:0 for load val, 9 for reset
+	input [17:0] SW, // 7:0 for load val, 9 for reset
 	input [3:0] KEY // 3 for ASR, 2 for ShiftRight, 1 for Load_n, 0 for clock
 	);
 	
 	Shifter shifter_8bit(
 		.Q(LEDR[7:0]),
 		.load_val(SW[7:0]),
-		.load_n(KEY[1]),
-		.shiftright(KEY[2]),
+		.load_n(SW[15]),
+		.shiftright(SW[16]),
 		.clk(KEY[0]),
 		.reset_n(SW[9]),
-		.ASR(KEY[3])
+		.ASR(SW[17])
 		);
 	
 endmodule
