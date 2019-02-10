@@ -31,22 +31,21 @@ module lab_4(
 endmodule
 
 
-// TFF(Q, T, clk, clear_b)
-module TFF(
+// T_FF(Q, T, clk, clear_b)
+module T_FF(
 	output reg Q,
 	input T,
 	input clk,
 	input clear_b
 	);
 	
-	always @(posedge clk, clear_b)
+	always @(posedge clk, negedge clear_b)
 	begin
 		if (clear_b == 1'b0)
 			Q <= 0;
 		else
-			Q <= T;
+			Q <= Q ^ T;
 	end
-
 	
 endmodule
 
@@ -69,14 +68,14 @@ module counter_8bit(
 	assign Q5_and_Q4 = Q[5] & Q4_and_Q3;
 	assign Q6_and_Q5 = Q[6] & Q5_and_Q4;
 	
-	// TFF(Q, T, clk, clear_b)
-	TFF TFF0(Q[0], enable, clk, clear_b); 
-	TFF TFF1(Q[1], Q0_and_en, clk, clear_b); 
-	TFF TFF2(Q[2], Q1_and_Q0, clk, clear_b); 
-	TFF TFF3(Q[3], Q2_and_Q1, clk, clear_b); 
-	TFF TFF4(Q[4], Q3_and_Q2, clk, clear_b); 
-	TFF TFF5(Q[5], Q4_and_Q3, clk, clear_b); 
-	TFF TFF6(Q[6], Q5_and_Q4, clk, clear_b); 
-	TFF TFF7(Q[7], Q6_and_Q5, clk, clear_b); 
+	// T_FF(Q, T, clk, clear_b)
+	T_FF TFF0(Q[0], enable, clk, clear_b); 
+	T_FF TFF1(Q[1], Q0_and_en, clk, clear_b); 
+	T_FF TFF2(Q[2], Q1_and_Q0, clk, clear_b); 
+	T_FF TFF3(Q[3], Q2_and_Q1, clk, clear_b); 
+	T_FF TFF4(Q[4], Q3_and_Q2, clk, clear_b); 
+	T_FF TFF5(Q[5], Q4_and_Q3, clk, clear_b); 
+	T_FF TFF6(Q[6], Q5_and_Q4, clk, clear_b); 
+	T_FF TFF7(Q[7], Q6_and_Q5, clk, clear_b); 
 	
 endmodule
