@@ -137,9 +137,9 @@ module control(
                 S_LOAD_X: next_state = go ? S_LOAD_X_WAIT : S_LOAD_X; // Loop in current state until value is input
                 S_LOAD_X_WAIT: next_state = go ? S_LOAD_X_WAIT : S_CYCLE_0; // Loop in current state until go signal goes low
                 S_CYCLE_0: next_state = S_CYCLE_1;
-					 S_CYCLE_1: next_state = S_CYCLE_2;
-					 S_CYCLE_2: next_state = S_CYCLE_3;
-					 S_CYCLE_3: next_state = S_CYCLE_4;
+		S_CYCLE_1: next_state = S_CYCLE_2;
+		S_CYCLE_2: next_state = S_CYCLE_3;
+		S_CYCLE_3: next_state = S_CYCLE_4;
                 S_CYCLE_4: next_state = S_LOAD_A; // we will be done our two operations, start over after
             default:     next_state = S_LOAD_A;
         endcase
@@ -173,30 +173,30 @@ module control(
             S_LOAD_X: begin
                 ld_x = 1'b1;
                 end
-				S_CYCLE_0: begin // DO A <- A * x
-					 ld_alu_out = 1'b1; ld_a = 1'b1; // store Ax in A
-					 alu_select_a = 2'b00; // reg A
-					 alu_select_b = 2'b11; // reg x
-					 alu_op = 1'b1; // multiply
-				end
+	    S_CYCLE_0: begin // DO A <- A * x
+		ld_alu_out = 1'b1; ld_a = 1'b1; // store Ax in A
+		alu_select_a = 2'b00; // reg A
+		alu_select_b = 2'b11; // reg x
+		alu_op = 1'b1; // multiply
+	    end
             S_CYCLE_1: begin // Do A <- A * x 
                 ld_alu_out = 1'b1; ld_a = 1'b1; // store Ax^2 in A
                 alu_select_a = 2'b00; // reg A 
                 alu_select_b = 2'b11; // reg x
                 alu_op = 1'b1; // multiply
             end
-				S_CYCLE_2: begin // Do B <- B * x
-					 ld_alu_out = 1'b1; ld_b = 1'b1; // store Bx in B
-					 alu_select_a = 2'b01; // reg B
-					 alu_select_b = 2'b11; // reg x
-					 alu_op = 1'b1; // multiply
-				end
-				S_CYCLE_3: begin // Do B <- B + C
-					 ld_alu_out = 1'b1; ld_b = 1'b1; // store Bx + C in B
-					 alu_select_a = 2'b01; // reg B
-					 alu_select_b = 2'b10; // reg C
-					 alu_op = 1'b0; // add
-				end
+	    S_CYCLE_2: begin // Do B <- B * x
+		ld_alu_out = 1'b1; ld_b = 1'b1; // store Bx in B
+		alu_select_a = 2'b01; // reg B
+		alu_select_b = 2'b11; // reg x
+		alu_op = 1'b1; // multiply
+	    end
+	    S_CYCLE_3: begin // Do B <- B + C
+		ld_alu_out = 1'b1; ld_b = 1'b1; // store Bx + C in B
+		alu_select_a = 2'b01; // reg B
+		alu_select_b = 2'b10; // reg C
+		alu_op = 1'b0; // add
+	    end
             S_CYCLE_4: begin
                 ld_r = 1'b1; // store result in result register
                 alu_select_a = 2'b00; // Select register A
