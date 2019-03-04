@@ -33,16 +33,9 @@ module lab_6b
 	output	[9:0]	VGA_B;   				//	VGA Blue[9:0]
 	
 	wire resetn;
-	reg [6:0] load_x;
+
 	assign resetn = KEY[0];
 	assign colour = SW[9:7];
-	
-	always @(~KEY[3]) // because keys are flipped
-	begin
-		assign load_x <= SW[6:0];
-	end
-	
-	assign x = load_x;
 	
 	// Create the colour, x, y and writeEn wires that are inputs to the controller.
 	wire [2:0] colour;
@@ -86,11 +79,13 @@ module lab_6b
 endmodule
 
 module control(
-		input go,
-		input reset,
-		input clk,
-		output out
-	)
+	output [1:0] out_x,
+	output [1:0] out_y,
+	output en,
+	input go,
+	input reset,
+	input clk
+);
 	
 	wire [3:0] counter_out;
 	
@@ -140,8 +135,99 @@ module control(
 		endcase
 	end
 	
-	// TODO: output logic for datapath
-	// probably something like x + counter_out[1:0] and y + counter_out[3:2]
+	// output logic for datapath
+	always @(*)
+	begin: enable_signals
+		out_x = 2'b0
+		out_y = 2'b0
+		en = 1'b0
+		case (current_state)
+			S_LOAD_WAIT: begin
+				en = 1'b0;
+			end
+			S_PIXEL1: begin
+				en = 1'b1;
+				out_x = counter_out[1:0]
+				out_y = counter_out[3:2]
+			end
+			S_PIXEL2: begin
+				en = 1'b1;
+				out_x = counter_out[1:0]
+				out_y = counter_out[3:2]
+			end
+			S_PIXEL3: begin
+				en = 1'b1;
+				out_x = counter_out[1:0]
+				out_y = counter_out[3:2]
+			end
+			S_PIXEL4: begin
+				en = 1'b1;
+				out_x = counter_out[1:0]
+				out_y = counter_out[3:2]
+			end
+			S_PIXEL5: begin
+				en = 1'b1;
+				out_x = counter_out[1:0]
+				out_y = counter_out[3:2]
+			end
+			S_PIXEL6: begin
+				en = 1'b1;
+				out_x = counter_out[1:0]
+				out_y = counter_out[3:2]
+			end
+			S_PIXEL7: begin
+				en = 1'b1;
+				out_x = counter_out[1:0]
+				out_y = counter_out[3:2]
+			end
+			S_PIXEL8: begin
+				en = 1'b1;
+				out_x = counter_out[1:0]
+				out_y = counter_out[3:2]
+			end
+			S_PIXEL9: begin
+				en = 1'b1;
+				out_x = counter_out[1:0]
+				out_y = counter_out[3:2]
+			end
+			S_PIXEL10: begin
+				en = 1'b1;
+				out_x = counter_out[1:0]
+				out_y = counter_out[3:2]
+			end
+			S_PIXEL11: begin
+				en = 1'b1;
+				out_x = counter_out[1:0]
+				out_y = counter_out[3:2]
+			end
+			S_PIXEL12: begin
+				en = 1'b1;
+				out_x = counter_out[1:0]
+				out_y = counter_out[3:2]
+			end
+			S_PIXEL13: begin
+				en = 1'b1;
+				out_x = counter_out[1:0]
+				out_y = counter_out[3:2]
+			end
+			S_PIXEL14: begin
+				en = 1'b1;
+				out_x = counter_out[1:0]
+				out_y = counter_out[3:2]
+			end
+			S_PIXEL15: begin
+				en = 1'b1;
+				out_x = counter_out[1:0]
+				out_y = counter_out[3:2]
+			end
+			S_PIXEL16: begin
+				en = 1'b1;
+				out_x = counter_out[1:0]
+				out_y = counter_out[3:2]
+			end
+		endcase
+	end
+				
 	
 	// current state FFs
 	always @(posedge clk)
