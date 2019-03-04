@@ -36,7 +36,7 @@ module lab_6b
 
 	assign resetn = KEY[0];
 	assign colour = SW[9:7];
-	assign go = ~KEY[3];
+	assign go = ~KEY[1];
 	
 	// Create the colour, x, y and writeEn wires that are inputs to the controller.
 	wire [2:0] colour;
