@@ -36,12 +36,16 @@ module lab_6b
 
 	assign resetn = KEY[0];
 	assign colour = SW[9:7];
+	assign go = ~KEY[3];
 	
 	// Create the colour, x, y and writeEn wires that are inputs to the controller.
 	wire [2:0] colour;
 	wire [7:0] x;
 	wire [6:0] y;
 	wire writeEn;
+	
+	assign x [6:0] = dx_out;
+	assign y [6:0] = dy_out;
 
 	// Create an Instance of a VGA controller - there can be only one!
 	// Define the number of colours as well as the initial background
@@ -72,10 +76,70 @@ module lab_6b
     
     // Instansiate datapath
 	// datapath d0(...);
+	datapath d0(dx_out, 
+		    dy_out, 
+		    writeEn, 
+		    en, 
+		    KEY[3], 
+		    SW[6:0],
+		    resetn,
+		    x_out,
+		    y_out,
+		    clk
+		   );
 
     // Instansiate FSM control
     // control c0(...);
+	control c0(x_out, y_out, en, go, resetn, clk);
     
+endmodule
+
+module datapath(
+	output reg [6:0] x_out,
+	output reg [6:0] y_out,
+	output write_en,
+	input c_en,
+	input write_x,
+	input [6:0] set_value,
+	input reset,
+	input [1:0] add_x,
+	input [1:0] add_y,
+	input clk
+);
+	reg [6:0] x, y;
+	
+	// set value block for x and y
+	always @(*)
+	begin
+		if (!reset)
+		begin
+			x <= 7'b0;
+			y <= 7'b0;
+		end
+		if (!c_en)
+		begin
+			if (!write_x) // because keys are flipped
+				x <= set_value;
+			else
+				y <= set_value;
+		end
+	end
+			
+	
+	// counter addition to x and y
+	always @(posedge clk)
+	begin
+		if (c_en)
+		begin
+			x_out <= x + add_x;
+			y_out <= y + add_y;
+			write_en = 1'b1;
+		end
+		else
+			write_en = 1'b0;
+		end
+	end
+	
 endmodule
 
 module control(
