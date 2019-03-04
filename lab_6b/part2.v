@@ -76,7 +76,8 @@ module lab_6b
     
     // Instansiate datapath
 	// datapath d0(...);
-	datapath d0(dx_out, 
+	datapath d0(
+			dx_out, 
 		    dy_out, 
 		    writeEn, 
 		    en, 
@@ -97,7 +98,7 @@ endmodule
 module datapath(
 	output reg [6:0] x_out,
 	output reg [6:0] y_out,
-	output write_en,
+	output reg write_en,
 	input c_en,
 	input write_x,
 	input [6:0] set_value,
@@ -133,19 +134,18 @@ module datapath(
 		begin
 			x_out <= x + add_x;
 			y_out <= y + add_y;
-			write_en = 1'b1;
+			write_en <= 1'b1;
 		end
 		else
-			write_en = 1'b0;
-		end
+			write_en <= 1'b0;
 	end
 	
 endmodule
 
 module control(
-	output [1:0] out_x,
-	output [1:0] out_y,
-	output en,
+	output reg [1:0] out_x,
+	output reg [1:0] out_y,
+	output reg en,
 	input go,
 	input reset,
 	input clk
@@ -202,92 +202,92 @@ module control(
 	// output logic for datapath
 	always @(*)
 	begin: enable_signals
-		out_x = 2'b0
-		out_y = 2'b0
-		en = 1'b0
+		out_x <= 2'b0;
+		out_y <= 2'b0;
+		en <= 1'b0;
 		case (current_state)
 			S_LOAD_WAIT: begin
-				en = 1'b0;
+				en <= 1'b0;
 			end
 			S_PIXEL1: begin
-				en = 1'b1;
-				out_x = counter_out[1:0]
-				out_y = counter_out[3:2]
+				en <= 1'b1;
+				out_x <= counter_out[1:0];
+				out_y <= counter_out[3:2];
 			end
 			S_PIXEL2: begin
-				en = 1'b1;
-				out_x = counter_out[1:0]
-				out_y = counter_out[3:2]
+				en <= 1'b1;
+				out_x <= counter_out[1:0];
+				out_y <= counter_out[3:2];
 			end
 			S_PIXEL3: begin
-				en = 1'b1;
-				out_x = counter_out[1:0]
-				out_y = counter_out[3:2]
+				en <= 1'b1;
+				out_x <= counter_out[1:0];
+				out_y <= counter_out[3:2];
 			end
 			S_PIXEL4: begin
-				en = 1'b1;
-				out_x = counter_out[1:0]
-				out_y = counter_out[3:2]
+				en <= 1'b1;
+				out_x <= counter_out[1:0];
+				out_y <= counter_out[3:2];
 			end
 			S_PIXEL5: begin
-				en = 1'b1;
-				out_x = counter_out[1:0]
-				out_y = counter_out[3:2]
+				en <= 1'b1;
+				out_x <= counter_out[1:0];
+				out_y <= counter_out[3:2];
 			end
 			S_PIXEL6: begin
-				en = 1'b1;
-				out_x = counter_out[1:0]
-				out_y = counter_out[3:2]
+				en <= 1'b1;
+				out_x <= counter_out[1:0];
+				out_y <= counter_out[3:2];
 			end
 			S_PIXEL7: begin
-				en = 1'b1;
-				out_x = counter_out[1:0]
-				out_y = counter_out[3:2]
+				en <= 1'b1;
+				out_x <= counter_out[1:0];
+				out_y <= counter_out[3:2];
 			end
 			S_PIXEL8: begin
-				en = 1'b1;
-				out_x = counter_out[1:0]
-				out_y = counter_out[3:2]
+				en <= 1'b1;
+				out_x <= counter_out[1:0];
+				out_y <= counter_out[3:2];
 			end
 			S_PIXEL9: begin
-				en = 1'b1;
-				out_x = counter_out[1:0]
-				out_y = counter_out[3:2]
+				en <= 1'b1;
+				out_x <= counter_out[1:0];
+				out_y <= counter_out[3:2];
 			end
 			S_PIXEL10: begin
-				en = 1'b1;
-				out_x = counter_out[1:0]
-				out_y = counter_out[3:2]
+				en <= 1'b1;
+				out_x <= counter_out[1:0];
+				out_y <= counter_out[3:2];
 			end
 			S_PIXEL11: begin
-				en = 1'b1;
-				out_x = counter_out[1:0]
-				out_y = counter_out[3:2]
+				en <= 1'b1;
+				out_x <= counter_out[1:0];
+				out_y <= counter_out[3:2];
 			end
 			S_PIXEL12: begin
-				en = 1'b1;
-				out_x = counter_out[1:0]
-				out_y = counter_out[3:2]
+				en <= 1'b1;
+				out_x <= counter_out[1:0];
+				out_y <= counter_out[3:2];
 			end
 			S_PIXEL13: begin
-				en = 1'b1;
-				out_x = counter_out[1:0]
-				out_y = counter_out[3:2]
+				en <= 1'b1;
+				out_x <= counter_out[1:0];
+				out_y <= counter_out[3:2];
 			end
 			S_PIXEL14: begin
-				en = 1'b1;
-				out_x = counter_out[1:0]
-				out_y = counter_out[3:2]
+				en <= 1'b1;
+				out_x <= counter_out[1:0];
+				out_y <= counter_out[3:2];
 			end
 			S_PIXEL15: begin
-				en = 1'b1;
-				out_x = counter_out[1:0]
-				out_y = counter_out[3:2]
+				en <= 1'b1;
+				out_x <= counter_out[1:0];
+				out_y <= counter_out[3:2];
 			end
 			S_PIXEL16: begin
-				en = 1'b1;
-				out_x = counter_out[1:0]
-				out_y = counter_out[3:2]
+				en <= 1'b1;
+				out_x <= counter_out[1:0];
+				out_y <= counter_out[3:2];
 			end
 		endcase
 	end
@@ -333,4 +333,3 @@ module T_FF(
 		Q <= Q ^ T;
 	end
 endmodule
-
